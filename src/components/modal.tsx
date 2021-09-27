@@ -6,12 +6,12 @@ import { IconButton } from "./icon";
 
 const ModalContainer = styled.div`
   position: absolute;
-  left: 50%;
-  top: 50%;
+  right: 5%;
+  top: 64px;
+  border-radius: 10px;
   padding: 1rem;
-  transform: translate(-50%, -50%);
   z-index: 10;
-  border: 1px solid ${(props) => props.theme.mainColor};
+  box-shadow: 0px 0px 8px 0px ${(props) => props.theme.accentColor};
   background-color: ${(props) => props.theme.backgroundColor};
 `;
 
@@ -87,11 +87,6 @@ const Modal = ({
       <ModalContainer hidden={modalHidden}>
         <TitleContainer>
           <Headline>{title}</Headline>
-          <IconButton
-            icon="close"
-            testid="close-button"
-            onClick={() => closeModal()}
-          />
         </TitleContainer>
         {children}
       </ModalContainer>

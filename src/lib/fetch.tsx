@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { IAppListProps } from "../components/apps";
 import { IThemeProps } from "./useTheme";
 import { IBookmarkListProps } from "../components/bookmarks";
-import { ISearchProps } from "../components/searchBar";
 import { IImprintProps } from "../components/imprint";
 import { IGreeterProps } from "../components/greeter";
 
@@ -18,7 +17,6 @@ interface IFetchListProps {
   bookmarks: IFetchItemProps;
   greeter: IFetchItemProps;
   imprint: IFetchItemProps;
-  search: IFetchItemProps;
   themes: IFetchItemProps;
 }
 
@@ -27,7 +25,6 @@ let fetchList: IFetchListProps = {
   bookmarks: { url: "/data/bookmarks.json" },
   greeter: { url: "/data/greeter.json" },
   imprint: { url: "/data/imprint.json" },
-  search: { url: "/data/search.json" },
   themes: { url: "/data/themes.json" },
 };
 
@@ -61,9 +58,6 @@ const useFetch = () => {
   const [imprintData, setImprintData] = useState<IImprintProps>();
   fetchList.imprint.setHook = setImprintData;
 
-  const [searchData, setSearchData] = useState<ISearchProps>();
-  fetchList.search.setHook = setSearchData;
-
   const [themeData, setThemeData] = useState<Array<IThemeProps>>();
   fetchList.themes.setHook = setThemeData;
 
@@ -82,7 +76,6 @@ const useFetch = () => {
     bookmarkData,
     greeterData,
     imprintData,
-    searchData,
     themeData,
     callback,
   };

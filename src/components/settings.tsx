@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import Select from "./select";
 
-import { ISearchProps } from "./searchBar";
 import { setTheme, IThemeProps, getTheme } from "../lib/useTheme";
 import { Button, SubHeadline } from "./elements";
 
@@ -43,17 +42,6 @@ export const SectionHeadline = styled(SubHeadline)`
   border-bottom: 1px solid ${(props) => props.theme.accentColor};
   margin-bottom: 0.5rem;
 `;
-
-const Text = styled.p`
-  font-weight: 700;
-  color: ${(props) => props.theme.accentColor};
-`;
-
-const Code = styled.p`
-  font-family: monospace;
-  color: ${(props) => props.theme.accentColor};
-`;
-
 const ThemeHeader = styled.p`
   grid-column: 1 / 4;
   color: ${(props) => props.theme.accentColor};
@@ -77,7 +65,6 @@ const ThemeSelect = styled(Select)`
 
 interface ISettingsProps {
   themes: Array<IThemeProps> | undefined;
-  search: ISearchProps | undefined;
 }
 
 /**
@@ -85,14 +72,14 @@ interface ISettingsProps {
  * @param {Array<IThemeProps>} themes - the list of themes a user can select between
  * @param {ISearchProps} search - the list of search providers
  */
-const Settings = ({ themes, search }: ISettingsProps) => {
+  const Settings = ({ themes}: ISettingsProps) => {
   const [newLightTheme, setNewLightTheme] = useState<IThemeProps>();
   const [newDarkTheme, setNewDarkTheme] = useState<IThemeProps>();
 
   const currentLightTheme = getTheme("light").label;
   const currentDarkTheme = getTheme("dark").label;
 
-  if (themes || search) {
+  if (themes) {
     return (
       <Modal element="icon" icon="settings" title="Settings">
         {themes && (
@@ -129,33 +116,6 @@ const Settings = ({ themes, search }: ISettingsProps) => {
             >
               Refresh
             </Button>
-          </Section>
-        )}
-        {search && (
-          <Section>
-            <SectionHeadline>Search Providers</SectionHeadline>
-            <>
-              <Text>Default Search Provider</Text>
-              <Code>{search.defaultProvider}</Code>
-            </>
-            <>
-              {search.providers && (
-                <Table>
-                  <tbody>
-                    <TableRow>
-                      <HeadCell>Search Provider</HeadCell>
-                      <HeadCell>Prefix</HeadCell>
-                    </TableRow>
-                    {search.providers.map(({ name, prefix }, index) => (
-                      <TableRow key={name + index}>
-                        <TableCell>{name}</TableCell>
-                        <TableCell>{prefix}</TableCell>
-                      </TableRow>
-                    ))}
-                  </tbody>
-                </Table>
-              )}
-            </>
           </Section>
         )}
       </Modal>

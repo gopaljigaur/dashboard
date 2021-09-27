@@ -1,4 +1,3 @@
-import { ISearchProps } from "../components/searchBar";
 import { IBookmarkGroupProps } from "../components/bookmarks";
 import { IAppCategoryProps } from "../components/appCategory";
 import { IAppProps } from "../components/app";
@@ -9,10 +8,6 @@ import { IGreeterProps } from "../components/greeter";
 declare module "../data/apps.json" {
   export const categories: IAppCategoryProps[];
   export const apps: IAppProps[];
-}
-
-declare module "../data/search.json" {
-  export const search: ISearchProps;
 }
 
 declare module "../data/bookmarks.json" {

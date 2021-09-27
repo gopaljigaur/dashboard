@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { ISearchProps } from "../components/searchBar";
 import { IBookmarkGroupProps } from "../components/bookmarks";
 import { IAppCategoryProps } from "../components/appCategory";
 import { IAppProps } from "../components/app";
@@ -21,11 +20,6 @@ export const handleResponse = (response: Response) => {
   if (response.ok) return response.json();
   throw new Error(errorMessage);
 };
-
-export interface ISearchDataProps {
-  search: ISearchProps;
-  error: string | boolean;
-}
 
 export interface IBookmarkDataProps {
   groups: Array<IBookmarkGroupProps>;
@@ -64,14 +58,6 @@ export const defaults = {
   },
   bookmark: {
     groups: [],
-    error: false,
-  },
-  search: {
-    search: {
-      placeholder: "",
-      defaultProvider: "https://google.com/search?q=",
-      providers: [],
-    },
     error: false,
   },
   theme: {
@@ -153,8 +139,6 @@ export const handleError = (status: string, error: Error) => {
       return { ...defaults.app, error: error.message };
     case "bookmark":
       return { ...defaults.bookmark, error: error.message };
-    case "searchProvider":
-      return { ...defaults.search, error: error.message };
     case "theme":
       return { ...defaults.theme, error: error.message };
     case "imprint":
@@ -176,9 +160,6 @@ export const fetchProduction = Promise.all([
   fetch("/data/bookmarks.json")
     .then(handleResponse)
     .catch((error: Error) => handleError("bookmark", error)),
-  fetch("/data/search.json")
-    .then(handleResponse)
-    .catch((error: Error) => handleError("searchProvider", error)),
   fetch("/data/themes.json")
     .then(handleResponse)
     .catch((error: Error) => handleError("theme", error)),
@@ -196,7 +177,7 @@ export const fetchProduction = Promise.all([
 export const fetchDevelopment = Promise.all([
   import("../data/apps.json"),
   import("../data/bookmarks.json"),
-  import("../data/search.json"),
+//  import("../data/search.json"),
   import("../data/themes.json"),
   import("../data/imprint.json"),
   import("../data/greeter.json"),
@@ -211,9 +192,6 @@ export const useFetcher = () => {
   const [bookmarkData, setBookmarkData] = useState<IBookmarkDataProps>(
     defaults.bookmark,
   );
-
-  const [searchProviderData, setSearchProviderData] =
-    useState<ISearchDataProps>(defaults.search);
 
   const [themeData, setThemeData] = useState<IThemeDataProps>(defaults.theme);
 
@@ -230,14 +208,12 @@ export const useFetcher = () => {
       ([
         appData,
         bookmarkData,
-        searchData,
         themeData,
         imprintData,
         greeterData,
       ]: [
         IAppDataProps,
         IBookmarkDataProps,
-        ISearchDataProps,
         IThemeDataProps,
         IImprintDataProps,
         IGreeterDataProps,
@@ -245,9 +221,6 @@ export const useFetcher = () => {
         setAppData(appData.error ? appData : { ...appData, error: false });
         setBookmarkData(
           bookmarkData.error ? bookmarkData : { ...bookmarkData, error: false },
-        );
-        setSearchProviderData(
-          searchData.error ? searchData : { ...searchData, error: false },
         );
         setThemeData(
           themeData.error ? themeData : { ...themeData, error: false },
@@ -267,7 +240,6 @@ export const useFetcher = () => {
   return {
     appData,
     bookmarkData,
-    searchProviderData,
     themeData,
     imprintData,
     greeterData,

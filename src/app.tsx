@@ -1,6 +1,5 @@
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 
-import SearchBar from "./components/searchBar";
 import Greeter from "./components/greeter";
 import AppList from "./components/appList";
 import BookmarkList from "./components/bookmarks";
@@ -33,7 +32,6 @@ const App = () => {
   const {
     appData,
     bookmarkData,
-    searchProviderData,
     themeData,
     imprintData,
     greeterData,
@@ -51,11 +49,9 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <div>
-        <SearchBar search={searchProviderData?.search} />
-        {(!themeData.error || !searchProviderData.error) && (
+        {(!themeData.error) && (
           <Settings
             themes={themeData?.themes}
-            search={searchProviderData?.search}
           />
         )}
         <Greeter data={greeterData.greeter} />

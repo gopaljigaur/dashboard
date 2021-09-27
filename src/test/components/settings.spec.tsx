@@ -8,7 +8,6 @@ import Settings, {
   Section,
   SectionHeadline,
 } from "../../components/settings";
-import { ISearchProps } from "../../components/searchBar";
 import { IThemeProps } from "../../lib/useTheme";
 
 const themes: Array<IThemeProps> = [
@@ -27,46 +26,12 @@ const themes: Array<IThemeProps> = [
     backgroundColor: "#ffffff",
   },
 ];
-
-const search: ISearchProps = {
-  defaultProvider: "https://test.com?q=",
-  placeholder: "",
-  providers: [
-    {
-      name: "Allmusic",
-      url: "https://www.allmusic.com/search/all/",
-      prefix: "/a",
-    },
-    {
-      name: "Discogs",
-      url: "https://www.discogs.com/search/?q=",
-      prefix: "/di",
-    },
-    {
-      name: "Duck Duck Go",
-      url: "https://duckduckgo.com/?q=",
-      prefix: "/d",
-    },
-  ],
-};
-
 const propsList = [
   {
-    themes: themes,
-    search: search,
+    themes: themes
   },
   {
-    themes: themes,
-    search: undefined,
-  },
-  {
-    themes: undefined,
-    search: search,
-  },
-  {
-    themes: undefined,
-    search: undefined,
-  },
+    themes: undefined  }
 ];
 
 describe("settings.tsx", () => {
@@ -117,7 +82,7 @@ describe("settings.tsx", () => {
   it("Tests settings rendering", () => {
     propsList.forEach((props) => {
       const { asFragment } = render(
-        <Settings themes={props.themes} search={props.search} />,
+        <Settings themes={props.themes} />,
       );
 
       expect(asFragment).toMatchSnapshot();
@@ -125,14 +90,14 @@ describe("settings.tsx", () => {
   });
 
   it("Tests submit button", () => {
-    const settings = render(<Settings themes={themes} search={search} />);
+    const settings = render(<Settings themes={themes} />);
 
     fireEvent.click(settings.getByTestId("button-refresh"));
     expect(window.location.reload).toHaveBeenCalledTimes(1);
   });
 
   it("Tests light theme selection", () => {
-    const settings = render(<Settings themes={themes} search={search} />);
+    const settings = render(<Settings themes={themes} />);
 
     fireEvent.change(settings.getByTestId("select-light"), {
       target: { value: 0 },
@@ -143,7 +108,7 @@ describe("settings.tsx", () => {
   });
 
   it("Tests dark theme selection", () => {
-    const settings = render(<Settings themes={themes} search={search} />);
+    const settings = render(<Settings themes={themes} />);
 
     fireEvent.change(settings.getByTestId("select-dark"), {
       target: { value: 0 },
@@ -154,7 +119,7 @@ describe("settings.tsx", () => {
   });
 
   it("Tests theme selection", () => {
-    const settings = render(<Settings themes={themes} search={search} />);
+    const settings = render(<Settings themes={themes} />);
 
     fireEvent.change(settings.getByTestId("select-light"), {
       target: { value: 5 },

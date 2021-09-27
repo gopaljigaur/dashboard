@@ -21,11 +21,6 @@ describe("fetcher.tsx", () => {
       error: "Test!",
     });
 
-    expect(handleError("searchProvider", Error("Test!"))).toEqual({
-      ...defaults.search,
-      error: "Test!",
-    });
-
     expect(handleError("theme", Error("Test!"))).toEqual({
       ...defaults.theme,
       error: "Test!",
