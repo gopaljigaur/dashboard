@@ -240,6 +240,8 @@ In order for the imprint-modal to show up, make sure your `imprint.json` resembl
 
 > :exclamation: I haven't quite tested this. I'm not a lawyer and I'm not responsible if you're sued for using this incorrectly.
 
+This fork removes the search feature (I could not find any use for that), and gives a few visual changes.
+
 [docker]: https://hub.docker.com/r/phntxx/dashboard
 [codecov]: https://codecov.io/gh/phntxx/dashboard
 [repo]: https://github.com/phntxx/dashboard
